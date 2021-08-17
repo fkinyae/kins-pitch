@@ -1,1 +1,10 @@
-<h1>Beginning</h1>
+{% extends 'base.html' %}
+
+{% block styles%}
+    {{ super() }}
+    <link rel="stylesheet" href="{{url_for('static',filename='css/index.css')}}">
+{% endblock %}
+
+{% block content %}
+<h1 class="head text-center">Beginning</h1>
+{% endblock %}
