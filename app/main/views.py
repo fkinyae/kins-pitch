@@ -1,7 +1,7 @@
 from flask import render_template,request,url_for,abort,redirect
 from . import main
 from flask_login import login_required
-from ..models import User,Role
+from ..models import User,Role,Categories
 from .forms import UpdateProfile
 from .. import db,photos
 
@@ -9,13 +9,10 @@ from .. import db,photos
 @main.route('/')
 def index():
     
-    return render_template('index.html')
-
-@main.route('/')
-@login_required
-def new_category():
+    categories = Categories.query.all()
     
-    return render_template('new_category.html')
+    return render_template('index.html',categories = categories)
+
 
 @main.route('/user/<uname>')
 def profile(uname):
