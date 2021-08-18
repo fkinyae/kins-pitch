@@ -16,6 +16,7 @@ class User(db.Model, UserMixin):
     role_id = db.Column(db.Integer,db.ForeignKey('roles.id'))
     bio = db.Column(db.String(255))
     profile_pic_path = db.Column(db.String())
+    
     pass_secure = db.Column(db.String(255))
     @property
     def password(self):
@@ -46,7 +47,20 @@ class Categories(db.Model):
     
     id = db.Column(db.Integer, primary_key=True)
     category = db.Column(db.String(255))
-    user_id = db.Column(db.Integer, db.ForeignKey("users.id"))
+
+    
+    def save_category(self):
+        db.session.add(self)
+        db.session.commit()
+        
+    @classmethod
+    def get_categories(cls):
+        categories = Categories.query.all()    
+        return categories
+    
+    
+    def __repr__(self):
+        return f'User {self.category}'   
             
     
 
