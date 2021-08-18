@@ -1,0 +1,9 @@
+{% macro displayCategories(categories) %}
+
+    {% for category in categories %}
+        <div>
+            {{category.category}}
+        </div>
+    {% endfor %}    
+
+{% endmacro  %}
