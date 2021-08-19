@@ -10,7 +10,7 @@
 <div class="container" id="body1">
     <div class="row">
         <ul>
-            <a class="btn btn-primary" id="cat_btn" href="{{url_for('cats.category')}}">Add Category</a>
+            <a class="btn btn-primary cat_btn" href="{{url_for('cats.category')}}">Add Category</a>
         </ul>
         
     </div>
@@ -19,7 +19,9 @@
 
         <div class="col-md-3">
 
-                 <h4 id="cats">{{category.category}}</h4>
+                 <h4 > <a class="cats" href="/pitch/{{category.id}}">{{category.category}}</a></h4>
+
+                 <a class="ratings btn btn-primary" href="/pitch/new/{{category.id}}">Add Your Pitch</a>
 
         </div>
 
@@ -28,4 +30,33 @@
     </div>
 
 </div>
+  
+
+    <div class="container body1" id="body2">
+        <div class="row">   
+            <ul>
+                <a class="ratings btn btn-primary back_btn" href="/">Go Back</a>
+            </ul>
+        </div>
+        <div class="row text-center">
+            <h4 class="p_title">Enjoy {{title}}</h4>
+
+            </div>
+            <div class="row">
+                
+            {% for pitch in pitches %}
+    
+        <div class="col-md-4">
+              
+          <div>
+            <h5>{{pitch.pitch}}</h5>
+          </div>
+        </div>
+    
+        {% endfor %}
+        </div>
+
+    </div>
+   
 {% endblock %}
+
