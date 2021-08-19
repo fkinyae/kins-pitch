@@ -5,11 +5,36 @@
     background-color: #062a78; 
     color: #fff;
     font-weight: bold;
+    padding-bottom: 40px;
+}
+#body2 {
+    font-family: 'Merriweather', serif;
+    background-color: #062a78; 
+    color: #fff;
+    font-weight: bold;
+    
 }
 
-#cat_btn {
+.p_title {
+    font-weight: bold;
+
+}
+
+.cat_btn {
     float: right;
 }
+.cats {
+    color: #fff;
+    font-weight: bold;
+}
+
+.back_btn {
+    float: left;
+}
+
 #cats {
     font-weight: bold;
+}
+#back {
+    float: left;
 }
