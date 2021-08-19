@@ -1,9 +1,10 @@
 from flask import render_template,request,url_for,abort,redirect
 from . import main
-from flask_login import login_required
-from ..models import User,Role,Categories
-from .forms import UpdateProfile
+from flask_login import login_required, current_user
+from ..models import User,Role,Categories,Pitches
+from .forms import UpdateProfile,PitchForm
 from .. import db,photos
+import markdown2
 
 
 @main.route('/')
@@ -13,6 +14,42 @@ def index():
     
     return render_template('index.html',categories = categories)
 
+@main.route('/pitch/<int:id>')
+def pitch(id):
+        category = Categories.query.filter_by(id=id).first().id
+        title =Categories.query.filter_by(id=id).first().category
+        pitches = Pitches.get_pitch(category)
+        
+        return render_template('index.html',title=title,category=category,pitches=pitches)
+
+    
+
+@main.route('/pitch/new/<int:id>', methods=['GET','POST'])
+@login_required
+def new_pitch(id):
+    form = PitchForm()
+    cat = Categories.query.filter_by(id=id).first().id
+    
+    if form.validate_on_submit():
+        pitch = form.pitch.data
+        category_id = Categories.query.filter_by(id=id).first().id
+
+        
+        new_pitch = Pitches(pitch=pitch, category_id=category_id)
+        
+        db.session.add(new_pitch)
+        db.session.commit()
+        return redirect(url_for('main.index'))
+    
+    return render_template('new_pitch.html', pitch_form=form)
+
+@main.route('/<int:id>')
+def single_pitch(id):
+    pitch=Pitches.query.get(id)
+    if pitch is None:
+        abort(404)
+    format_pitch = markdown2.markdown(pitch.pitch,extras=["code-friendly", "fenced-code-blocks"])    
+    return render_template('index.html',pitch = pitch, format_pitch=format_pitch)
 
 @main.route('/user/<uname>')
 def profile(uname):
