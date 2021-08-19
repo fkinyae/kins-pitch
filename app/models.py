@@ -16,6 +16,8 @@ class User(db.Model, UserMixin):
     role_id = db.Column(db.Integer,db.ForeignKey('roles.id'))
     bio = db.Column(db.String(255))
     profile_pic_path = db.Column(db.String())
+    pitch = db.relationship('Pitches', backref = 'user', lazy = "dynamic")
+
     
     pass_secure = db.Column(db.String(255))
     @property
@@ -47,6 +49,7 @@ class Categories(db.Model):
     
     id = db.Column(db.Integer, primary_key=True)
     category = db.Column(db.String(255))
+    #pitch = db.relationship('Pitch', backref = 'categories', lazy = "dynamic")
 
     
     def save_category(self):
@@ -61,6 +64,27 @@ class Categories(db.Model):
     
     def __repr__(self):
         return f'User {self.category}'   
+    
+class Pitches(db.Model):
+    
+    __tablename__= 'pitch'
+    
+    id = db.Column(db.Integer, primary_key=True)
+    pitch = db.Column(db.String)
+    category_id = db.Column(db.Integer)
+    owner = db.Column(db.Integer,db.ForeignKey('users.id'))
+    
+    def save_pitch(self):
+        db.session.add(self)
+        db.session.commit()
+     
+    @classmethod   
+    def get_pitch(cls,id):
+        pitches = Pitches.query.filter_by(category_id = id).all()
+        
+        return pitches  
+    def __repr__(self):
+        return f'User {self.pitch}' 
             
     
 
