@@ -7,17 +7,15 @@
     font-weight: bold;
     padding-bottom: 40px;
 }
-#body2 {
-    font-family: 'Merriweather', serif;
-    background-color: #062a78; 
-    color: #fff;
-    font-weight: bold;
-    
-}
+
 
 .p_title {
     font-weight: bold;
 
+}
+
+.com_name {
+    color: green;
 }
 
 .cat_btn {

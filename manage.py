@@ -1,6 +1,6 @@
 from app import create_app,db
 from flask_script import Manager,Server
-from app.models import User, Role,Categories
+from app.models import User, Role,Categories,Comments
 from flask_migrate import Migrate, MigrateCommand
 
 #create app instance
