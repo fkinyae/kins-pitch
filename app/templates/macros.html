@@ -48,9 +48,10 @@
                     
                     <a class="ratings btn btn-primary" href="/comment/{{pitch.id}}">Comments</a>
 
-                    <a class="ratings btn btn-success" href="">Like {{pitch.upvote.count()}}</a>
+                    <a class="ratings btn btn-success" href="{{url_for('main.upvote',id=pitch.id)}}">Like {{pitch.upvote.count()}}</a>
 
-                    <a class="ratings btn btn-danger" href="">Dislike {{pitch.upvote.count()}}</a>
+
+                    <a class="ratings btn btn-danger" href="{{url_for('main.downvote',id=pitch.id)}}">Dislike {{pitch.downvote.count()}}</a>
                 
                 </div>
 

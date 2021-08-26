@@ -127,9 +127,9 @@ def single_comment(id):
 
         return render_template('index.html',comment=comment,format_comment=format_comment)
     
-@main.route('/pitch/upvote/new/<int:id>/<action>')
+@main.route('/pitch/upvote/new/<int:id>', methods=['GET','POST'])
 @login_required
-def upvote(id,action):
+def upvote(id):
         get_ps = Upvotes.get_upvotes(id)
         valid_string = f'{current_user.id}:{id}'
         for pitch in get_ps:
@@ -141,7 +141,7 @@ def upvote(id,action):
                 continue
         new_vote = Upvotes(user = current_user, pitch_id=id)
         new_vote.save()
-        return redirect(url_for('main.index',id=id))    
+        return redirect(url_for('main.upvote',id=id))    
         
 @main.route('/pitch/downvote/new/<int:id>', methods=['GET','POST'])
 @login_required
@@ -157,7 +157,7 @@ def downvote(id):
                 continue
         new_vote = Downvotes(user = current_user, pitch_id=id)
         new_vote.save()
-        return redirect(url_for('main.index',id=id))    
+        return redirect(url_for('main.downvote',id=id))    
                 
     
 
