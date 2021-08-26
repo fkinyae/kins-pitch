@@ -17,7 +17,7 @@ class Config:
     SIMPLEMDE_USE_CDN = True
 
 class ProdConfig(Config):
-    DATABASE_URL = os.environ.get("DATABASE_URI")
+    SQLALCHEMY_DATABASE_URI = os.environ.get("DATABASE_URI")
 
 class DevConfig(Config):
     DEBUG = True
